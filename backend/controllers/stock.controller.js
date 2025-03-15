@@ -1,8 +1,8 @@
-const stockService = require("../services/stock.service");
+const stockServices = require("../services/stock.service");
 
 async function listStocks(req, res, next) {
   try {
-    const data = await stockService.getAllStock();
+    const data = await stockServices.getAllStock();
     // console.log("Data retreived");
     res.status(200).json(data);
   } catch (error) {
@@ -25,7 +25,7 @@ async function addStock(req, res, next) {
         .status(400)
         .json({ message: "Quantity and price must be positive numbers" });
     }
-    const data = await stockService.addStock(
+    const data = await stockServices.addStock(
       brand_name,
       model,
       location,
