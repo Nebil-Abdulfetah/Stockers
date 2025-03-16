@@ -1,0 +1,32 @@
+:root {
+    /* colors */
+  --primary-color: #1e3a8a;
+  --accent-color: #f97316;
+  --white-color: #ffffff;
+  --light-gray: #f3f4f6;
+  --dark-gray: #374151;
+  --primary-hover: #1e40af;
+  --accent-hover: #ea580c;
+
+
+/* Font Sizes */
+--font-size-xxl: 3rem;
+--font-size-xl: 2.5rem;
+--font-size-l: 1.5rem;
+--font-size-m: 1rem;
+--font-size-s: 0.875rem;
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: sans-serif;
+  background: linear-gradient(135deg, #F3F4F6, #E2E8F0); /* Very light blue */
+  background-size: cover;
+  background-position: center;
+}
+img {
+  max-width: 100%;
+  height: auto;
+}
