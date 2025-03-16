@@ -8,7 +8,12 @@ const authRoute = require("./routes/auth.route")
 //starting express
 const app = express();
 
+
 // middleware
+app.use(cors({
+  origin: "http://localhost:5173", // Replace with your frontend URL
+  credentials: true, // Allow cookies & auth headers
+}));
 app.use(express.json());
 
 app.use("/stock", stockRoute);
