@@ -24,7 +24,7 @@ function Login() {
         localStorage.setItem("token", data.token); // Store token
         localStorage.setItem("user", JSON.stringify(data.user)); // Store user info
         toast.success(data.message); // Show success message
-        navigate("/dashboard"); // Redirect to dashboard
+        navigate("/"); // Redirect to dashboard
       } else {
         toast.error(data.message); // Show error message
       }

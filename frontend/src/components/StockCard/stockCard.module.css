@@ -1,0 +1,51 @@
+.stock_card {
+  display: flex;
+  background-color: var(--white-color);
+  padding: .5rem;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1.4rem;
+  /* width: 50%; */
+  border-radius: 8px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, .2);
+}
+.stock_details {
+  display: flex;
+  gap: 2rem;
+}
+.btn_container {
+    display: flex;
+    gap: 1rem;
+}
+.btn {
+  font-size: 16px;
+  font-weight: 600;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+}
+.add_btn {
+  background-color: #1e3a8a; /* Dark Blue */
+  color: white;
+}
+.add_btn:hover {
+  background-color: #274bb3; /* Slightly lighter blue */
+}
+
+.add_btn:active {
+  background-color: #162c67; /* Pressed state */
+}
+.sell_btn {
+  background-color: #f97316; /* Orange */
+  color: white;
+}
+.sell_btn:hover {
+  background-color: #ff8c3f; /* Lighter orange */
+}
+
+.sell_btn:active {
+  background-color: #c95e10; /* Pressed state */
+}

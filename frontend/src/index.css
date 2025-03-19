@@ -22,11 +22,17 @@
 }
 body {
   font-family: sans-serif;
-  background: linear-gradient(135deg, #F3F4F6, #E2E8F0); /* Very light blue */
+  background-color: #E2E8F0;
   background-size: cover;
   background-position: center;
 }
 img {
   max-width: 100%;
   height: auto;
+}
+ul {
+  list-style: none;
+}
+a {
+  text-decoration: none;
 }
