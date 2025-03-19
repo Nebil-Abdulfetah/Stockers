@@ -1,0 +1,13 @@
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    padding: 1rem;
+}
+footer a {
+    color: white;
+    text-decoration: underline;
+}
