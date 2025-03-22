@@ -1,13 +1,18 @@
 footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    text-align: center;
-    background-color: var(--primary-color);
-    color: var(--white-color);
-    padding: 1rem;
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 90vw;
+  text-align: center;
+  background-color: var(--primary-color);
+  color: var(--white-color);
+  padding: 1rem;
+  border-radius: 15px 15px 0px 0px;
+  margin-top: 100rem;
 }
 footer a {
-    color: white;
-    text-decoration: underline;
+  color: white;
+  text-decoration: underline;
 }

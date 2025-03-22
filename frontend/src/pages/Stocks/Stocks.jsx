@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import Header from '../../components/Header/Header';
 import StockCard from '../../components/StockCard/StockCard';
 import styles from './stocks.module.css'
 function Stocks() {
@@ -28,14 +27,13 @@ function Stocks() {
 
   return (
     <>
-    <Header />
-      {/* <h1>Stock List</h1>
+      <h1>Available Stock</h1>
     <div className={styles.stock_container}>
       {stocks.map((stock) => (
         <StockCard key={stock.id} stock={stock} />
       ))
     }
-    </div> */}
+    </div>
     </>
   );
 }

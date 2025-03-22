@@ -4,15 +4,39 @@ header {
   left: 0;
   background-color: var(--white-color);
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
-  padding: 1rem 2rem;
+  padding: .5rem;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
   z-index: 1000;
 }
 .logo_container {
   width: 250px;
 }
-.menu_btn {
+.nav_item_list {
+  display: flex;
+  gap: 2rem;
+}
+.nav_item {
+  padding: 0.5rem 1rem;
+  border-radius:  8px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.nav_item:hover {
+  background-color: var(--accent-hover);
+}
+.nav_item:hover .nav_link {
+  color: var(--white-color);
+}
+.nav_link {
+  color: var(--primary-color);
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+
+/* .menu_btn {
   font-size: 2rem;
   color: var(--primary-color);
-}
+} */
