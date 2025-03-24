@@ -1,51 +1,61 @@
 .stock_card {
+  background: white;
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   display: flex;
-  background-color: var(--white-color);
-  padding: .5rem;
-  align-items: center;
   justify-content: space-between;
-  font-size: 1.4rem;
-  /* width: 50%; */
-  border-radius: 8px;
-  box-shadow: 5px 5px 5px rgba(0, 0, 0, .2);
+  align-items: center;
+  transition: transform 0.2s ease-in-out;
 }
-.stock_details {
-  display: flex;
-  gap: 2rem;
+
+.stock_card:hover {
+  transform: scale(1.02);
 }
-.btn_container {
-    display: flex;
-    gap: 1rem;
+
+.stock_info h2 {
+  font-size: 18px;
+  color: #1E3A8A; /* Primary dark blue */
+  margin: 0;
 }
-.btn {
+
+.stock_info p {
   font-size: 14px;
+  color: #555;
+}
+
+.stock_info span {
   font-weight: bold;
-  padding: 8px 16px;
-  border-radius: 6px;
-  border: none;
+}
+
+.stock_actions {
+  display: flex;
+  gap: 10px;
+}
+
+.add_btn, .sell_btn {
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-weight: bold;
   cursor: pointer;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
+  border: none;
+  transition: all 0.2s ease-in-out;
 }
+
 .add_btn {
-  background-color: #1e3a8a; /* Dark Blue */
+  background-color: #1E3A8A;
   color: white;
 }
-.add_btn:hover {
-  background-color: #274bb3; /* Slightly lighter blue */
-}
 
-.add_btn:active {
-  background-color: #162c67; /* Pressed state */
-}
 .sell_btn {
-  background-color: #f97316; /* Orange */
+  background-color: #F97316;
   color: white;
 }
-.sell_btn:hover {
-  background-color: #ff8c3f; /* Lighter orange */
+
+.add_btn:hover {
+  background-color: #0F2554;
 }
 
-.sell_btn:active {
-  background-color: #c95e10; /* Pressed state */
+.sell_btn:hover {
+  background-color: #C45A0B;
 }

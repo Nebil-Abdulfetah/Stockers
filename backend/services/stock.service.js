@@ -45,13 +45,47 @@ async function addBuyRecord(model, quantity, price) {
     throw error;
   }
 }
-async function addSalesRecord(buyer_name, model, quantity, price, total_price, payment_type) {
+async function addSalesRecord(
+  buyer_name,
+  model,
+  quantity,
+  price,
+  total_price,
+  payment_type
+) {
   try {
-    const sql = "INSERT INTO `sales_record`(`buyer_name`, `model`, `quantity`, `price`, `total_price`, `payment_type`) VALUES (?,?,?,?,?,?)";
-    const results = await db.query(sql, [buyer_name, model, quantity, price, total_price, payment_type]);
+    const sql =
+      "INSERT INTO `sales_record`(`buyer_name`, `model`, `quantity`, `price`, `total_price`, `payment_type`) VALUES (?,?,?,?,?,?)";
+    const results = await db.query(sql, [
+      buyer_name,
+      model,
+      quantity,
+      price,
+      total_price,
+      payment_type,
+    ]);
     return results;
   } catch (error) {
-    throw error
+    throw error;
+  }
+}
+async function getSummary() {
+  try {
+    const [totalStock] = await db.query(
+      "SELECT SUM(quantity) AS total FROM stock"
+    );
+
+    const [bestSelling] = await db.query(`
+      SELECT model, SUM(quantity) AS sold 
+      FROM sales_record 
+      GROUP BY model 
+      ORDER BY sold DESC 
+      LIMIT 1
+    `);
+    const result = [bestSelling, totalStock]
+    return result
+  } catch (error) {
+    throw error;
   }
 }
 module.exports = {
@@ -61,4 +95,5 @@ module.exports = {
   updateStockQuantity,
   addBuyRecord,
   addSalesRecord,
+  getSummary,
 };

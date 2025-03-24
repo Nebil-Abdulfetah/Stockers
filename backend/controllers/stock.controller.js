@@ -5,8 +5,9 @@ const {
   updateStockQuantity,
   addBuyRecord,
   addSalesRecord,
+  getSummary,
 } = require("../services/stock.service");
-const {addCreditRecord} = require("../services/credit.service");
+const { addCreditRecord } = require("../services/credit.service");
 async function listStocks(req, res) {
   try {
     const data = await getAllStock();
@@ -105,8 +106,20 @@ async function sellStock(req, res) {
       .json({ message: "Internal server error", error: error.message });
   }
 }
+async function summary(req, res) {
+  try {
+    const [bestSelling, totalStock] = await getSummary();
+    console.log(bestSelling, totalStock)
+    res.status(201).json({bestSelling, totalStock});
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Internal server error", error: error.message });
+  }
+}
 module.exports = {
   listStocks,
   restock,
   sellStock,
+  summary,
 };
