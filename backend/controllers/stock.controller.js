@@ -1,8 +1,15 @@
-const stockServices = require("../services/stock.service");
-const creditServices = require("../services/credit.service");
+const {
+  getAllStock,
+  isStockAvailable,
+  addStock,
+  updateStockQuantity,
+  addBuyRecord,
+  addSalesRecord,
+} = require("../services/stock.service");
+const {addCreditRecord} = require("../services/credit.service");
 async function listStocks(req, res) {
   try {
-    const data = await stockServices.getAllStock();
+    const data = await getAllStock();
     // console.log("Data retreived");
     res.status(200).json(data);
   } catch (error) {
@@ -11,7 +18,7 @@ async function listStocks(req, res) {
       .json({ message: "Internal server error", error: error.message });
   }
 }
-async function addStock(req, res) {
+async function restock(req, res) {
   const { model, quantity, price } = req.body;
 
   try {
@@ -24,12 +31,12 @@ async function addStock(req, res) {
         .json({ message: "Quantity and price must be positive numbers" });
     }
 
-    await stockServices.addBuyRecord(model, quantity, price); //add buying to the records table
-    const isStockAvailable = await stockServices.isStockAvailable(model); // Check if stock is available
-    if (!isStockAvailable) {
-      await stockServices.addStock(model, quantity); // Add new stock
+    await addBuyRecord(model, quantity, price); //add buying to the records table
+    const isStock = await isStockAvailable(model); // Check if stock is available
+    if (!isStock) {
+      await addStock(model, quantity); // Add new stock
     } else {
-      await stockServices.updateStockQuantity(model, quantity); // Update stock quantity
+      await updateStockQuantity(model, quantity); // Update stock quantity
     }
     res.status(201).json({ message: "Stock added successfully" });
   } catch (error) {
@@ -59,7 +66,7 @@ async function sellStock(req, res) {
         .json({ message: "Quantity and price must be positive numbers" });
     }
     //check if stock is available
-    const stock = await stockServices.isStockAvailable(model);
+    const stock = await isStockAvailable(model);
     if (!stock) {
       res.status(404).json({ message: "Stock is not found" });
     }
@@ -69,7 +76,7 @@ async function sellStock(req, res) {
       return res.status(400).json({ message: "Not enough quantity" });
     }
     //add selling to the sales_record table
-    const result = await stockServices.addSalesRecord(
+    const result = await addSalesRecord(
       buyer_name,
       model,
       quantity,
@@ -80,7 +87,7 @@ async function sellStock(req, res) {
     //add to credit record
     const sellId = result.insertId;
     if (payment_type === "credit") {
-      await creditServices.addCreditRecord(
+      await addCreditRecord(
         sellId,
         total_price,
         (paid_amount = 0),
@@ -88,7 +95,7 @@ async function sellStock(req, res) {
       );
     }
     //update stock quantity after selling
-    await stockServices.updateStockQuantity(model, -quantity);
+    await updateStockQuantity(model, -quantity);
 
     res.status(200).json({ message: "Stock sold successfully" });
   } catch (error) {
@@ -100,6 +107,6 @@ async function sellStock(req, res) {
 }
 module.exports = {
   listStocks,
-  addStock,
+  restock,
   sellStock,
 };
