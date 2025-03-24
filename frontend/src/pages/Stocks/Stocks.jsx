@@ -27,7 +27,6 @@ function Stocks() {
 
   return (
     <>
-      <h1>Available Stock</h1>
     <div className={styles.stock_container}>
       {stocks.map((stock) => (
         <StockCard key={stock.id} stock={stock} />

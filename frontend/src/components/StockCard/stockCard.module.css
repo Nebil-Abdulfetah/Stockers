@@ -18,10 +18,10 @@
     gap: 1rem;
 }
 .btn {
-  font-size: 16px;
-  font-weight: 600;
-  padding: 10px 16px;
-  border-radius: 8px;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 8px 16px;
+  border-radius: 6px;
   border: none;
   cursor: pointer;
   transition: all 0.3s ease;
