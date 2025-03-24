@@ -1,5 +1,5 @@
 const stockServices = require("../services/stock.service");
-
+const creditServices = require("../services/credit.service");
 async function listStocks(req, res) {
   try {
     const data = await stockServices.getAllStock();
@@ -11,7 +11,6 @@ async function listStocks(req, res) {
       .json({ message: "Internal server error", error: error.message });
   }
 }
-
 async function addStock(req, res) {
   const { model, quantity, price } = req.body;
 
@@ -40,8 +39,67 @@ async function addStock(req, res) {
       .json({ message: "Internal server error", error: error.message });
   }
 }
+async function sellStock(req, res) {
+  const { buyer_name, model, quantity, price, total_price, payment_type } =
+    req.body;
+  try {
+    if (
+      !buyer_name ||
+      !model ||
+      !quantity ||
+      !price ||
+      !payment_type ||
+      !total_price
+    ) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
+    if (quantity <= 0 || price <= 0) {
+      return res
+        .status(400)
+        .json({ message: "Quantity and price must be positive numbers" });
+    }
+    //check if stock is available
+    const stock = await stockServices.isStockAvailable(model);
+    if (!stock) {
+      res.status(404).json({ message: "Stock is not found" });
+    }
+    const availableQuantity = stock.quantity;
+    // check if there is enough quantity
+    if (availableQuantity < quantity) {
+      return res.status(400).json({ message: "Not enough quantity" });
+    }
+    //add selling to the sales_record table
+    const result = await stockServices.addSalesRecord(
+      buyer_name,
+      model,
+      quantity,
+      price,
+      total_price,
+      payment_type
+    );
+    //add to credit record
+    const sellId = result.insertId;
+    if (payment_type === "credit") {
+      await creditServices.addCreditRecord(
+        sellId,
+        total_price,
+        (paid_amount = 0),
+        (remaining_amount = total_price)
+      );
+    }
+    //update stock quantity after selling
+    await stockServices.updateStockQuantity(model, -quantity);
 
+    res.status(200).json({ message: "Stock sold successfully" });
+  } catch (error) {
+    console.error("Error adding stock:", error); // Logs for debugging
+    res
+      .status(500)
+      .json({ message: "Internal server error", error: error.message });
+  }
+}
 module.exports = {
   listStocks,
   addStock,
+  sellStock,
 };
